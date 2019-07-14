@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Login.Register">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/avata_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_foreground"
+            />
+
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/edt_name_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="name"/>
+    <EditText
+        android:id="@+id/edt_phone_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="so dien thoai"
+        android:phoneNumber="true"
+        />
+    <EditText
+        android:id="@+id/edt_password_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="password"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rd_group"
+        >
+        <RadioButton
+            android:id="@+id/rBtn_nam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nam" />
+        <RadioButton
+            android:id="@+id/rBtn_nu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nữ" />
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/btn_send_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="đăng ký"
+        />
+
+</LinearLayout>
