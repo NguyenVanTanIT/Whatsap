@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.whatsap.MainActivity;
 import com.example.whatsap.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -70,37 +72,57 @@ public class Login extends AppCompatActivity {
         }
     }
     private void handleLogin() {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
         final ArrayList<User> phone = new ArrayList<>();
-       mdata = FirebaseDatabase.getInstance().getReference();
-       mdata.child("user").addChildEventListener(new ChildEventListener() {
-           @Override
-           public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-               User user = dataSnapshot.getValue(User.class);
-              phone.add(user);
-           }
 
-           @Override
-           public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("user");
+        currentUserDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                String b = user.getmPhone();
+                //Log.d("bbbbbbbbbbbb",b);
+            }
 
-           }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-           @Override
-           public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+            }
+        });
 
-           }
 
-           @Override
-           public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//        mdata = FirebaseDatabase.getInstance().getReference();
+//        mdata.child("user").addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                User user = dataSnapshot.getValue(User.class);
+//                phone.add(user);
+////                for (int i = 0; i <phone.size(); i++){
+//////                    Log.d("aaaa", phone.get(i).getmPhone());
+//////                }
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
 
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
-           }
-       });
-        for (int i = 0; i <phone.size(); i++){
-            Log.d("aaaa", phone.get(i).getmPassword());
-        }
-        Log.d("aaaa", String.valueOf(phone.size()));
     }
+
 }

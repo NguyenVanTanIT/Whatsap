@@ -68,10 +68,10 @@ public class Register extends AppCompatActivity {
            }else{
                sex = radioButtonGirl.getText().toString();
            }
-            int phone = Integer.parseInt(edtPhoneRegister.getText().toString());
-            DatabaseReference myRef = database.getReference();
+            String phone = edtPhoneRegister.getText().toString();
+            DatabaseReference myRef = database.getReference("user");
             User user = new User(phone,edtNameRegister.getText().toString(),edtPassword.getText().toString(),sex,"");
-            myRef.child("user").push().setValue(user);
+            myRef.child(phone).setValue(user);
 
             Toast.makeText(getApplication(),"ban da dan ky thanh cong",Toast.LENGTH_LONG).show();
         }

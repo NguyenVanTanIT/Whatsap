@@ -27,7 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="so dien thoai"
-        android:phoneNumber="true"
         />
     <EditText
         android:id="@+id/edt_password_register"

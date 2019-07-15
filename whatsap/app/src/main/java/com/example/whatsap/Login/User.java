@@ -2,7 +2,7 @@ package com.example.whatsap.Login;
 
 public class User {
 
-    private  int mPhone;
+    private  String mPhone;
     private String  mName;
     private String mPassword;
     private String mSex;
@@ -11,12 +11,19 @@ public class User {
     public User() {
 
     }
+    public User(String phone, String name) {
+        this.mPhone = phone;
+        this.mName = name;
+    }
+    public User(String phone) {
+        this.mPhone = phone;
+    }
 
-    public int getmPhone() {
+    public String getmPhone() {
         return mPhone;
     }
 
-    public void setmPhone(int mPhone) {
+    public void setmPhone(String mPhone) {
         this.mPhone = mPhone;
     }
 
@@ -52,7 +59,7 @@ public class User {
         this.avata = avata;
     }
 
-    public User(int mPhone, String mName, String mPassword, String mSex, String avata) {
+    public User(String mPhone, String mName, String mPassword, String mSex, String avata) {
         this.mPhone = mPhone;
         this.mName = mName;
         this.mPassword = mPassword;
