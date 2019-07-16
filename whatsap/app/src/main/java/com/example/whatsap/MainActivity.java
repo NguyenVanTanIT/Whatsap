@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,40 +17,30 @@ import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.whatsap.Login.Login;
 import com.example.whatsap.Login.User;
 import com.example.whatsap.fragment.fragment;
 import com.example.whatsap.fragment.fragment_frend;
 import com.example.whatsap.fragment.fragment_sms;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.widget.Toast.LENGTH_LONG;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toobar;
     TabLayout tabLayout;
     ViewPager viewpager;
-    final ArrayList<User> contactList = new ArrayList<>();
-    DatabaseReference mdata;
+    public static ArrayList<User> contactList = new ArrayList<>();
+
 
     private  int[] tabIcon = {
             R.drawable.chat,
             R.drawable.home,
             R.drawable.like,
     };
-    @Override
-//    public ArrayList<User> getContacList(){
-//        return contactList;
-//    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -93,55 +81,6 @@ public class MainActivity extends AppCompatActivity {
             }
             User mContact = new User(phone, name);
             contactList.add(mContact);
-            //getUserDetails(mContact);
-            for (User user:contactList){
-                Log.d("44",user.getmPhone());
-                Log.d("44",user.getmName());
-            }
-            final ArrayList<User> phone1 = new ArrayList<>();
-
-
-//            mdata = FirebaseDatabase.getInstance().getReference();
-//            mdata.child("user").addChildEventListener(new ChildEventListener() {
-//                @Override
-//                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                    User user = dataSnapshot.getValue(User.class);
-//                    //  phone1.add(user);
-//                    String b = user.getmPhone();
-//                    Log.d("bbbbbbbbbbbb",b);
-//                    for (int i = 0 ; i < contactList.size(); i++){
-//                        String a = contactList.get(i).getmPhone();
-//                        //Log.d("aaaaaaaaaa",a);
-//                        if (a.equals(b)){
-//                            Log.d("111111111111111","111111111111111111111111111");
-//                            Toast.makeText(getApplication(),contactList.get(i).getmName() +" "+ a, LENGTH_LONG).show();
-//                            break;
-//                        }
-//                    }
-//
-//                }
-//
-//                @Override
-//                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                }
-//
-//                @Override
-//                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//                }
-//
-//                @Override
-//                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//                }
-//            });
-
-
         }
 }
     private void getPermissions() {

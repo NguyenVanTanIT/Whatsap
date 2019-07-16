@@ -3,6 +3,7 @@ package com.example.whatsap.Login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.strictmode.LeakedClosableViolation;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 
 import com.example.whatsap.MainActivity;
 import com.example.whatsap.R;
@@ -74,54 +76,27 @@ public class Login extends AppCompatActivity {
     private void handleLogin() {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
-        final ArrayList<User> phone = new ArrayList<>();
-
-        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("user");
-        currentUserDb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                String b = user.getmPhone();
-                //Log.d("bbbbbbbbbbbb",b);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-//        mdata = FirebaseDatabase.getInstance().getReference();
-//        mdata.child("user").addChildEventListener(new ChildEventListener() {
+//        final ArrayList<User> phone = new ArrayList<>();
+//
+//        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("user");
+//        currentUserDb.addValueEventListener(new ValueEventListener() {
 //            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//              //  Log.d("bbbbbbbbbbbb",dataSnapshot.toString());
 //                User user = dataSnapshot.getValue(User.class);
-//                phone.add(user);
-////                for (int i = 0; i <phone.size(); i++){
-//////                    Log.d("aaaa", phone.get(i).getmPhone());
-//////                }
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
+//                String b = user.getmPhone();
+//                //Log.d("bbbbbbbbbbbb",b);
 //            }
 //
 //            @Override
 //            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
 //            }
 //        });
+
+
+
+
 
     }
 

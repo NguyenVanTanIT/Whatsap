@@ -6,11 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.fragment_frend">
-    <LinearLayout
-        android:id="@+id/lv_frend"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_list_frend"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-    </LinearLayout>
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

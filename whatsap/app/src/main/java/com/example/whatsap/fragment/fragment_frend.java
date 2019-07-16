@@ -1,10 +1,11 @@
 package com.example.whatsap.fragment;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,24 +16,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.whatsap.Login.User;
-
-import com.example.whatsap.MainActivity;
 import com.example.whatsap.R;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.ArrayList;
 
+import static com.example.whatsap.MainActivity.contactList;
+
 public class fragment_frend  extends Fragment   {
-    TextView tvNameItem, tvItemContent;
-    ImageView imvItemAvata;
-    ListView lvItem;
-    final ArrayList<User> contactList = new ArrayList<>();
-    ArrayList<String> listphone=new ArrayList<>();
-    final ArrayList<User> myDataset = null;
+    RecyclerView recyclerView;
+    AdapterPhone adapterPhone;
+    ArrayList<User> listphone = new ArrayList<>();
+    ArrayList<User> listphone1 = new ArrayList<>();
+    DatabaseReference mdata;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,30 +44,52 @@ public class fragment_frend  extends Fragment   {
     }
 
     private void handle() {
-        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("user");
-        currentUserDb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            listphone = contactList;
+            mdata = FirebaseDatabase.getInstance().getReference();
+            mdata.child("user").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                 //   Log.d("bbbbbbbbbbbb",dataSnapshot.toString());
+                    User user = dataSnapshot.getValue(User.class);
+                    String b = user.getmPhone();
+                    for (int i = 0 ; i < listphone.size(); i++){
+                        String a = listphone.get(i).getmPhone();
+                        if (a.equals(b)){
+                            listphone1.add(user);
+                            handleListPhone();
+                            break;
+                        }
+                    }
+                }
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                User user = dataSnapshot.getValue(User.class);
-                contactList.add(user);
-                for (int i = 0; i <contactList.size(); i++){
-//                    Log.d("aaaa", contactList.get(i).getmPassword());
                 }
 
-            }
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
 
-            }
-        });
-//        for (User user:contactList){
-//            Log.d("44",user.getmPhone());
-//            Log.d("44",user.getmName());
-//        }
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
 
 
+
+    }
+
+    private void handleListPhone() {
+        adapterPhone = new AdapterPhone(this,listphone1);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapterPhone);
     }
 
 
@@ -72,10 +97,7 @@ public class fragment_frend  extends Fragment   {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fragment_frend, null);
-        tvNameItem = view.findViewById(R.id.tv_item_name);
-        tvItemContent  = view.findViewById(R.id.tv_item_content);
-        imvItemAvata   = view.findViewById(R.id.imv_avat_item);
-        lvItem     = view.findViewById(R.id.lv_item);
+        recyclerView   = view.findViewById(R.id.rc_list_frend);
         return view;
     }
 
