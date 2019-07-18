@@ -10,10 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.whatsap.Login.User;
 import com.example.whatsap.R;
@@ -27,14 +23,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import static com.example.whatsap.MainActivity.contactList;
+import static com.example.whatsap.MainActivity.phoneUser;
 
 public class fragment_frend  extends Fragment   {
     RecyclerView recyclerView;
-    AdapterPhone adapterPhone;
+    AdapterFrend adapterPhone;
     ArrayList<User> listphone = new ArrayList<>();
     ArrayList<User> listphone1 = new ArrayList<>();
     DatabaseReference mdata;
-
+    String phone ;
 
 
     @Override
@@ -49,7 +46,7 @@ public class fragment_frend  extends Fragment   {
             mdata.child("user").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                 //   Log.d("bbbbbbbbbbbb",dataSnapshot.toString());
+                  // Log.d("bbbbbbbbbbbb",dataSnapshot.toString());
                     User user = dataSnapshot.getValue(User.class);
                     String b = user.getmPhone();
                     for (int i = 0 ; i < listphone.size(); i++){
@@ -86,7 +83,10 @@ public class fragment_frend  extends Fragment   {
     }
 
     private void handleListPhone() {
-        adapterPhone = new AdapterPhone(this,listphone1);
+        phone = phoneUser;
+
+
+        adapterPhone = new AdapterFrend(this,listphone1,phone);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapterPhone);

@@ -2,7 +2,7 @@ package com.example.whatsap.Login;
 
 public class User {
 
-    private  String mPhone;
+    private String mPhone;
     private String  mName;
     private String mPassword;
     private String mSex;

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.example.whatsap.ChatActivity;
 import com.example.whatsap.MainActivity;
 import com.example.whatsap.R;
 import com.google.firebase.database.ChildEventListener;
@@ -74,7 +75,10 @@ public class Login extends AppCompatActivity {
         }
     }
     private void handleLogin() {
-        Intent intent = new Intent(this,MainActivity.class);
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference("user");
+        //data.child("01636197331").child("chatId").push().setValue("aaaaa");
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("phoneUser",edt_phone.getText().toString());
         startActivity(intent);
 //        final ArrayList<User> phone = new ArrayList<>();
 //

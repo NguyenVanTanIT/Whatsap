@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewpager;
     public static ArrayList<User> contactList = new ArrayList<>();
+    public static  String phoneUser;
 
 
     private  int[] tabIcon = {
@@ -58,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(viewpager);
         tabLayout.setupWithViewPager(viewpager);
         setupIcon();
+
+        Intent intent = this.getIntent();
+        phoneUser = intent.getStringExtra("phoneUser");
+        Log.d("uuu",phoneUser);
         getPermissions();
         getContactList();
     }
@@ -92,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment( new fragment_sms(),"SMS");
-        adapter.addFragment(new fragment_frend(), "Frend");
-        adapter.addFragment(new fragment(), "Three");
+        adapter.addFragment( new fragment_sms(),"Nhắn tin");
+        adapter.addFragment(new fragment_frend(), "Danh bạ");
+        adapter.addFragment(new fragment(), "Cá nhân");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
     }
@@ -131,7 +136,4 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
-
-
 }
