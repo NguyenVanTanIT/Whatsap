@@ -7,16 +7,22 @@ public class User {
     private String mPassword;
     private String mSex;
     private String avata;
+    private  String text;
 
     public User() {
+    }
 
+    public User(String mPhone, String mName, String mPassword, String mSex, String avata) {
+        this.mPhone = mPhone;
+        this.mName = mName;
+        this.mPassword = mPassword;
+        this.mSex = mSex;
+        this.avata = avata;
     }
-    public User(String phone, String name) {
-        this.mPhone = phone;
-        this.mName = name;
-    }
-    public User(String phone) {
-        this.mPhone = phone;
+
+    public User(String mPhone, String mName) {
+        this.mPhone = mPhone;
+        this.mName = mName;
     }
 
     public String getmPhone() {
@@ -59,11 +65,20 @@ public class User {
         this.avata = avata;
     }
 
-    public User(String mPhone, String mName, String mPassword, String mSex, String avata) {
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public User(String mPhone, String mName, String mPassword, String mSex, String avata, String text) {
         this.mPhone = mPhone;
         this.mName = mName;
         this.mPassword = mPassword;
         this.mSex = mSex;
         this.avata = avata;
+        this.text = text;
     }
 }

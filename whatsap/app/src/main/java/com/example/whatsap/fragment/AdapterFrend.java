@@ -22,16 +22,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AdapterFrend extends RecyclerView.Adapter<AdapterFrend.ViewHolder>  {
     List<User> listphone;
     Fragment fragment;
     String phoneUser  ;
-    String chatId  ;
-    DatabaseReference mDatabaseUser;
 
     public AdapterFrend(String phoneUser){
         this.phoneUser = phoneUser;
@@ -55,15 +51,11 @@ public class AdapterFrend extends RecyclerView.Adapter<AdapterFrend.ViewHolder> 
         viewHolder.tvNameItem.setText(user.getmName());
         viewHolder.phone = user.getmPhone();
         //viewHolder.imvAvataitemPhone.setImageBitmap(user.getAvata());
-
     }
-
     @Override
     public int getItemCount() {
         return listphone.size();
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
         ImageView imvAvataitemPhone;
@@ -77,50 +69,43 @@ public class AdapterFrend extends RecyclerView.Adapter<AdapterFrend.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("phoneuser",phone);
                     setPhoneTable();
-                    Intent intent = new Intent(itemView.getContext(),ChatActivity.class);
-                    intent.putExtra("phone",phone);
-                    intent.putExtra("phoneUser",phoneUser);
-                    setIdChat();
-                    //intent.putExtra("chatId",key);
-                    fragment.startActivity(intent);
+
                 }
             });
         }
 
         private void setPhoneTable() {
-            DatabaseReference databaseReferencephoneUser= FirebaseDatabase.getInstance().getReference().child("phone");
-            DatabaseReference databaseReferencephone= FirebaseDatabase.getInstance().getReference().child("phone");
-            databaseReferencephone.child(phoneUser).setValue(phoneUser);
-            databaseReferencephone.child(phoneUser).push().setValue(phone);
-            databaseReferencephoneUser.child(phone).setValue(phone);
-            databaseReferencephoneUser.child(phone).push().setValue(phoneUser);
-        }
-
-        private void setIdChat() {
-//            key=phone+"x"+phoneUser;
-//
-//          mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("user").child(phoneUser).child("chatId");
-//
-//            Map<String, Object> usermap = new HashMap<>();
-//            usermap.put(key,key);
-            //String key=FirebaseDatabase.getInstance().getReference().child("chat").push().getKey();
-
-         //   String key;
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("phone");
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            final DatabaseReference databaseReferencephoneUser= FirebaseDatabase.getInstance().getReference().child("chat").child(phone);
+            databaseReferencephoneUser.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()){
-                        String key=FirebaseDatabase.getInstance().getReference().child("chat").push().getKey();
-                        FirebaseDatabase.getInstance().getReference().child("chat").child(key).setValue(key);
-                        Log.d("117",key);
-                        DatabaseReference databaseReferencephoneUser= FirebaseDatabase.getInstance().getReference().child("user").child(phoneUser).child("chatId");
-                        DatabaseReference databaseReferencephone= FirebaseDatabase.getInstance().getReference().child("user").child(phone).child("chatId");
-                        databaseReferencephone.setValue(key);
-                        databaseReferencephoneUser.setValue(key);
-                    }
+
+
+                    DatabaseReference mDatabaseChatt = FirebaseDatabase.getInstance().getReference().child("chat").child(phone+phoneUser);
+                    mDatabaseChatt.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            if(dataSnapshot.getValue() != null){
+                                Intent intent = new Intent(itemView.getContext(), ChatActivity.class);
+                                intent.putExtra("keyChat",phone+phoneUser);
+                                intent.putExtra("phone",phone);
+                                fragment.startActivity(intent);
+                            }else  {
+                                Intent intent = new Intent(itemView.getContext(), ChatActivity.class);
+                                intent.putExtra("keyChat",phoneUser+phone);
+                                intent.putExtra("phone",phone);
+                                fragment.startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
 
                 @Override
@@ -129,10 +114,8 @@ public class AdapterFrend extends RecyclerView.Adapter<AdapterFrend.ViewHolder> 
                 }
             });
 
-
-
-
         }
+
 
     }
 

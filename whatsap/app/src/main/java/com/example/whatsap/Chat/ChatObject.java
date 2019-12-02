@@ -1,11 +1,9 @@
 package com.example.whatsap.Chat;
 public class ChatObject {
     private String message;
-    private Boolean currentUser;
-    public ChatObject(String message, Boolean currentUser) {
-        this.message = message;
-        this.currentUser = currentUser;
-    }
+    private String currentUser;
+    private String currentPhone;
+
     public String getMessage() {
         return message;
     }
@@ -14,11 +12,25 @@ public class ChatObject {
         this.message = message;
     }
 
-    public Boolean getCurrentUser() {
+    public String getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(Boolean currentUser) {
+    public void setCurrentUser(String currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public String getCurrentPhone() {
+        return currentPhone;
+    }
+
+    public void setCurrentPhone(String currentPhone) {
+        this.currentPhone = currentPhone;
+    }
+
+    public ChatObject(String message, String currentUser, String currentPhone) {
+        this.message = message;
+        this.currentUser = currentUser;
+        this.currentPhone = currentPhone;
     }
 }

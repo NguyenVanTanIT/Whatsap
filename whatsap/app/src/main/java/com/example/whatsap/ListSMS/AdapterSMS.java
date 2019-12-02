@@ -15,9 +15,17 @@ import com.example.whatsap.ChatActivity;
 import com.example.whatsap.Login.User;
 import com.example.whatsap.R;
 import com.example.whatsap.fragment.fragment_sms;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.whatsap.Chat.ChatAdapter.textt;
+
 public class AdapterSMS extends RecyclerView.Adapter<AdapterSMS.ViewHolder> {
     List<User> listsms;
     Fragment fragment;
@@ -39,9 +47,11 @@ public class AdapterSMS extends RecyclerView.Adapter<AdapterSMS.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         User user = listsms.get(i);
+
         viewHolder.tvNameItem.setText(user.getmName());
+      Log.d("text", String.valueOf(listsms.get(i).getText()));
+        viewHolder.tvContenItem.setText(user.getText());
         viewHolder.phone = user.getmPhone();
-      //  viewHolder.imvAvataitemPhone.setImageBitmap(user.getAvata());
     }
 
     @Override
@@ -62,14 +72,32 @@ public class AdapterSMS extends RecyclerView.Adapter<AdapterSMS.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("phoneuser",tvNameItem.getText().toString());
-                    Intent intent = new Intent(itemView.getContext(), ChatActivity.class);
-                    intent.putExtra("phone",phone);
-                    intent.putExtra("phoneUser",phoneUser);
-                    fragment.startActivity(intent);
+                    DatabaseReference mDatabaseChatt = FirebaseDatabase.getInstance().getReference().child("chat").child(phone+phoneUser);
+                    mDatabaseChatt.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.getValue() != null){
+                                Intent intent = new Intent(itemView.getContext(), ChatActivity.class);
+                                intent.putExtra("keyChat",phone+phoneUser);
+                                intent.putExtra("phone",phone);
+                                fragment.startActivity(intent);
+                            }else  {
+                                Intent intent = new Intent(itemView.getContext(), ChatActivity.class);
+                                intent.putExtra("keyChat",phoneUser+phone);
+                                intent.putExtra("phone",phone);
+                                fragment.startActivity(intent);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             });
         }
 
     }
+
 }
+

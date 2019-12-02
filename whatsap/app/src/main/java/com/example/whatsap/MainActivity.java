@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import android.util.Log;
 import android.view.View;
 
 import com.example.whatsap.Login.Login;
@@ -26,7 +25,6 @@ import com.example.whatsap.fragment.fragment_sms;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toobar;
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         phoneUser = intent.getStringExtra("phoneUser");
-        Log.d("uuu",phoneUser);
+
         getPermissions();
         getContactList();
     }

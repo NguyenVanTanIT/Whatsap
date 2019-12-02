@@ -27,10 +27,10 @@ import java.util.ArrayList;
 public class fragment_sms extends Fragment  {
     RecyclerView recyclerView;
     AdapterSMS adapterSMS;
-    String keyphone;
     ArrayList<User> listfrend = new ArrayList<>();
+    ArrayList<String> listtext = new ArrayList<>();
     DatabaseReference mdata,mdatauser;
-    String avata="aaaa",mName = null,mPassword=null,mPhone=null,mSex=null;
+    String avata="aaaa",mName = null,mPassword=null,mPhone=null,mSex=null,mtext;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +39,12 @@ public class fragment_sms extends Fragment  {
 
     private void addcontrol() {
 
-        mdata = FirebaseDatabase.getInstance().getReference("phone");
-        mdata.child(phoneUser).addChildEventListener(new ChildEventListener() {
+        mdata = FirebaseDatabase.getInstance().getReference("phone").child(phoneUser);
+        mdata.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String data = dataSnapshot.getValue().toString();
-                Log.d("aaaaaaaaaaa",data);
-                keyphone = data;
-                lisitemfrend();
+                   lisitemfrend(dataSnapshot.getValue().toString());
+
 
             }
 
@@ -72,22 +70,19 @@ public class fragment_sms extends Fragment  {
         });
     }
 
-    private void lisitemfrend() {
+    private void lisitemfrend(String s) {
+
         mdatauser = FirebaseDatabase.getInstance().getReference("user");
-        mdatauser.child(keyphone).addChildEventListener(new ChildEventListener() {
+        mdatauser.child(s).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                  Log.d("aaaaaaaa", dataSnapshot.getValue().toString());
-//                if (dataSnapshot.getKey().toString().equals("avata")){
-//                    avata=dataSnapshot.getValue().toString();
-//                }
                 if (dataSnapshot.getKey().toString().equals("mName")){
                     mName=dataSnapshot.getValue().toString();
-                    Log.d("mName",mName);
+                 //   Log.d("mName",mName);
                 }
                 if (dataSnapshot.getKey().toString().equals("mPassword")){
                     mPassword=dataSnapshot.getValue().toString();
-                    Log.d("mPassword",mPassword);
+                   // Log.d("mPassword",mPassword);
                 }
                 if (dataSnapshot.getKey().toString().equals("mPhone")){
                     mPhone=dataSnapshot.getValue().toString();
@@ -95,18 +90,20 @@ public class fragment_sms extends Fragment  {
                 }
                 if (dataSnapshot.getKey().toString().equals("mSex")){
                     mSex=dataSnapshot.getValue().toString();
-                    Log.d("mSex",mSex);
+                 //   Log.d("mSex",mSex);
                 }
-                if (mName != null && mPassword != null && mSex !=null && mPhone !=null){
-                    User user = new User(mPhone,mName,mPassword,mSex,avata);
+                if (dataSnapshot.getKey().toString().equals("text")){
+                    mtext=dataSnapshot.getValue().toString();
+                    Log.d("mSex",mtext);
+                }
+
+                if (mName != null && mPassword != null && mSex !=null && mPhone !=null && mtext != null){
+                    Log.d("mSex",mtext);
+                    User user = new User(mPhone,mName,mPassword,mSex,avata,mtext);
                     listfrend.add(user);
-                    mName = null;mPassword= null;mPhone= null;mSex=null;
-                    Log.d("111111111","11111111111");
+                    mName = null;mPassword= null;mPhone= null;mSex=null;mtext= null;
                     handleAdapTerphone();
                 }
-
-
-
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

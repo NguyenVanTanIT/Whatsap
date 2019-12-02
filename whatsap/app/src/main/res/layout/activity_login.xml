@@ -55,6 +55,7 @@
             android:drawablePadding="20dp"
             android:drawableRight="@drawable/ic_pass"
             android:hint="******"
+            android:inputType="textPassword"
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -80,8 +81,8 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageVIew"
-        android:layout_marginTop="15dp"
+
+        android:layout_marginTop="15dp" android:id="@+id/imageVIew"
         android:layout_marginBottom="5dp"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/ic_app"

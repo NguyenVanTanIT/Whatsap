@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import com.example.whatsap.R;
+import static com.example.whatsap.MainActivity.phoneUser;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders>  {
     private List<ChatObject> chatList;
     private Context context;
+    public static  String textt,a ="hlooooo";
 
     public ChatAdapter(List<ChatObject> ChatList, Context context){
         this.chatList=ChatList;
@@ -34,26 +36,24 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders>  {
 
     @Override
     public void onBindViewHolder(ChatViewHolders holder, int position) {
-        //part 17
         holder.mMeassage.setText(chatList.get(position).getMessage());
-        if (chatList.get(position).getCurrentUser()){
+
+        String a = chatList.get(position).getCurrentUser();
+        String b = phoneUser;
+
+        if (a.equals(b)){
             holder.mMeassage.setGravity(Gravity.END);
-//            holder.mMeassage.setTextColor(Color.parseColor("#404040"));
-//            holder.mContainer.setBackgroundColor(Color.parseColor("#F4F4F4"));
-            //holder.mMeassage.setBackgroundResource(R.drawable.my_message);
             holder.mMeassage.setTextColor(Color.parseColor("#FFFFFF"));
             holder.mContainer.setBackgroundColor(Color.parseColor("#2DB4C8"));
-
         }
         else
         {
             holder.mMeassage.setGravity(Gravity.START);
             holder.mMeassage.setTextColor(Color.parseColor("#FFFFFF"));
-            holder.mContainer.setBackgroundColor(Color.parseColor("#2DB4C8"));
-
-            //holder.mMeassage.setBackgroundResource(R.drawable.their_message);
+            holder.mContainer.setBackgroundColor(Color.parseColor("#FF0000"));
         }
-        //
+        textt = chatList.get(position).getMessage();
+
     }
 
     @Override

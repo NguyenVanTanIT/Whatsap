@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.whatsap.ChatActivity;
@@ -24,7 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 
 public class Login extends AppCompatActivity {
 
@@ -75,33 +75,31 @@ public class Login extends AppCompatActivity {
         }
     }
     private void handleLogin() {
-        DatabaseReference data = FirebaseDatabase.getInstance().getReference("user");
-        //data.child("01636197331").child("chatId").push().setValue("aaaaa");
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("phoneUser",edt_phone.getText().toString());
-        startActivity(intent);
-//        final ArrayList<User> phone = new ArrayList<>();
-//
-//        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("user");
-//        currentUserDb.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//              //  Log.d("bbbbbbbbbbbb",dataSnapshot.toString());
-//                User user = dataSnapshot.getValue(User.class);
-//                String b = user.getmPhone();
-//                //Log.d("bbbbbbbbbbbb",b);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("user").child(edt_phone.getText().toString());
 
+        currentUserDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null){
 
+                   User user = dataSnapshot.getValue(User.class);
+                    if (user.getmPassword().equals(edt_password.getText().toString())){
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        intent.putExtra("phoneUser",edt_phone.getText().toString());
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(Login.this,"Mật khẩu sai",Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(Login.this,"Tài khoản không tồn tại",Toast.LENGTH_LONG).show();
+                }
 
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    }
-
+            }
+        });
+   }
 }

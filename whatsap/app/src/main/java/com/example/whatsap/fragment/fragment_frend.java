@@ -19,7 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
 import java.util.ArrayList;
 
 import static com.example.whatsap.MainActivity.contactList;
@@ -46,7 +45,6 @@ public class fragment_frend  extends Fragment   {
             mdata.child("user").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                  // Log.d("bbbbbbbbbbbb",dataSnapshot.toString());
                     User user = dataSnapshot.getValue(User.class);
                     String b = user.getmPhone();
                     for (int i = 0 ; i < listphone.size(); i++){
@@ -84,8 +82,6 @@ public class fragment_frend  extends Fragment   {
 
     private void handleListPhone() {
         phone = phoneUser;
-
-
         adapterPhone = new AdapterFrend(this,listphone1,phone);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
