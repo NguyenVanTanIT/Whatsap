@@ -83,6 +83,7 @@ public class Login extends AppCompatActivity {
                 if (dataSnapshot.getValue() != null){
 
                    User user = dataSnapshot.getValue(User.class);
+
                     if (user.getmPassword().equals(edt_password.getText().toString())){
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.putExtra("phoneUser",edt_phone.getText().toString());

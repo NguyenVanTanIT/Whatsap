@@ -16,22 +16,15 @@
         android:focusable="false"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
-
-
-        <include layout="@layout/layout_top_navigation_back"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-
-                android:scaleType="centerCrop" />
-        </LinearLayout>
+<!--        <include layout="@layout/layout_top_navigation_back"/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Thông tin cái nhân"
+            android:layout_gravity="center"
+            android:textSize="30sp"
+            android:textColor="#4CAF50"
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -55,8 +48,6 @@
             android:paddingTop="10dp"
             android:textSize="16sp" />
 
-
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,8 +59,8 @@
             android:text="Số Điện Thoại:"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/edit_phone"
+        <TextView
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -78,9 +69,37 @@
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:textSize="16sp" />
-
+        <TextView
+            android:layout_marginTop="5dp"
+            android:text="Mật khẩu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:drawablePadding="20dp"
+            android:drawableRight="@drawable/ic_pass"
+            android:hint="******"
+            android:id="@+id/edt_password_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rd_group"
+            >
+            <RadioButton
+                android:id="@+id/rBtn_nam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nam" />
+            <RadioButton
+                android:id="@+id/rBtn_nu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nữ" />
+        </RadioGroup>
 
         <Button
+            android:id="@+id/save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

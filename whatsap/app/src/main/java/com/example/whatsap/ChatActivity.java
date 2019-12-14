@@ -1,7 +1,6 @@
 package com.example.whatsap;
 
 import android.content.Intent;
-import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +25,6 @@ import java.util.Map;
 
 import com.example.whatsap.Chat.ChatAdapter;
 import com.example.whatsap.Chat.ChatObject;
-
 
 import static com.example.whatsap.MainActivity.phoneUser;
 
@@ -58,7 +54,6 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         KeyChat = intent.getStringExtra("keyChat");
         phone   = intent.getStringExtra("phone");
-
 
         currentphone = phoneUser;
 
@@ -103,10 +98,10 @@ public class ChatActivity extends AppCompatActivity {
                 newMessage.put("createdPhone",phone);
                 newMessage.put("text",sendMessageText);
                 newMessageDb.setValue(newMessage);
+            mSendEditText.setText(null);
         }
-        mSendEditText.setText(null);
+      getChatMessages();
     }
-
 
     private void getAdaper() {
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
@@ -138,7 +133,6 @@ public class ChatActivity extends AppCompatActivity {
                     }
                     if (dataSnapshot.child("createdByUser").getValue()!=null){
                         createdByUser=dataSnapshot.child("createdByUser").getValue().toString();
-
                     }
                     if (dataSnapshot.child("createdPhone").getValue() != null){
                         createdByphone = dataSnapshot.child("createdPhone").getValue().toString();
