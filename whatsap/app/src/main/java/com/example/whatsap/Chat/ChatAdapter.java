@@ -2,6 +2,7 @@ package com.example.whatsap.Chat;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,14 +44,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolders>  {
 
         if (a.equals(b)){
             holder.mMeassage.setGravity(Gravity.END);
-            holder.mMeassage.setTextColor(Color.parseColor("#FFFFFF"));
-            holder.mContainer.setBackgroundColor(Color.parseColor("#2DB4C8"));
+            holder.mMeassage.setTextColor(Color.parseColor("#FF2F548D"));
+            holder.mContainer.setBackgroundColor(Color.parseColor("#FFFEFE"));
         }
         else
         {
             holder.mMeassage.setGravity(Gravity.START);
-            holder.mMeassage.setTextColor(Color.parseColor("#FFFFFF"));
-            holder.mContainer.setBackgroundColor(Color.parseColor("#FF0000"));
+            holder.mMeassage.setTextColor(Color.parseColor("#FFF70000"));
+            holder.mContainer.setBackgroundColor(Color.parseColor("#FFFEFE"));
         }
         textt = chatList.get(position).getMessage();
 

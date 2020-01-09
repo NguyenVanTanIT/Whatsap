@@ -36,7 +36,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private ArrayList<ChatObject> resultChat= new ArrayList<ChatObject>();
     private RecyclerView.Adapter mChatAdapter;
-
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mChatLayoutManager;
     private List<ChatObject> getDataSetMatches() {
